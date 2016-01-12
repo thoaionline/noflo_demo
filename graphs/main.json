@@ -13,28 +13,68 @@
             "component": "webserver/Server",
             "metadata": {
                 "label": "webserver/Server",
-                "x": 432,
-                "y": 216,
+                "x": 36,
+                "y": 36,
                 "width": 72,
                 "height": 72
             }
         },
-        "webserver/SendResponse_714n2": {
+        "webserver/SendResponse_zr7nf": {
             "component": "webserver/SendResponse",
             "metadata": {
                 "label": "webserver/SendResponse",
-                "x": 900,
-                "y": 180,
+                "x": 792,
+                "y": 36,
                 "width": 72,
                 "height": 72
             }
         },
-        "webserver/WriteResponse_ng01t": {
-            "component": "webserver/WriteResponse",
+        "woute/ToPorts_prp3u": {
+            "component": "woute/ToPorts",
             "metadata": {
-                "label": "webserver/WriteResponse",
+                "label": "woute/ToPorts",
+                "x": 432,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "woute/FromPorts_orc46": {
+            "component": "woute/FromPorts",
+            "metadata": {
+                "label": "woute/FromPorts",
                 "x": 684,
-                "y": 180,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "strings/Jsonify_5uc1x": {
+            "component": "strings/Jsonify",
+            "metadata": {
+                "label": "strings/Jsonify",
+                "x": 540,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "woute/Match_f8lp5": {
+            "component": "woute/Match",
+            "metadata": {
+                "label": "woute/Match",
+                "x": 288,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "webserver/BodyParser_c9pel": {
+            "component": "webserver/BodyParser",
+            "metadata": {
+                "label": "webserver/BodyParser",
+                "x": 144,
+                "y": 36,
                 "width": 72,
                 "height": 72
             }
@@ -43,11 +83,44 @@
     "connections": [
         {
             "src": {
-                "process": "webserver/WriteResponse_ng01t",
+                "process": "woute/ToPorts_prp3u",
+                "port": "request"
+            },
+            "tgt": {
+                "process": "woute/FromPorts_orc46",
+                "port": "request"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "woute/ToPorts_prp3u",
+                "port": "headers"
+            },
+            "tgt": {
+                "process": "strings/Jsonify_5uc1x",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "strings/Jsonify_5uc1x",
                 "port": "out"
             },
             "tgt": {
-                "process": "webserver/SendResponse_714n2",
+                "process": "woute/FromPorts_orc46",
+                "port": "body"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "woute/FromPorts_orc46",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "webserver/SendResponse_zr7nf",
                 "port": "in"
             },
             "metadata": {}
@@ -58,7 +131,7 @@
                 "port": "request"
             },
             "tgt": {
-                "process": "webserver/WriteResponse_ng01t",
+                "process": "webserver/BodyParser_c9pel",
                 "port": "in"
             },
             "metadata": {
@@ -66,17 +139,32 @@
             }
         },
         {
+            "src": {
+                "process": "webserver/BodyParser_c9pel",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "woute/Match_f8lp5",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "woute/Match_f8lp5",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "woute/ToPorts_prp3u",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
             "data": 9000,
             "tgt": {
                 "process": "webserver/Server_qdu4j",
                 "port": "listen"
-            }
-        },
-        {
-            "data": "\"Hello World\"",
-            "tgt": {
-                "process": "webserver/WriteResponse_ng01t",
-                "port": "string"
             }
         }
     ]
