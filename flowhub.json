@@ -1,0 +1,17 @@
+{
+  "id": "67507571-a459-4b5c-85dd-2ede25ae3532",
+  "user": "thoaionline",
+  "host": "127.0.0.1",
+  "port": 3569,
+  "secret": "$!#pbJ1x",
+  "permissions": {
+    "$!#pbJ1x": [
+      "protocol:component",
+      "protocol:runtime",
+      "protocol:graph",
+      "protocol:network",
+      "component:getsource",
+      "component:setsource"
+    ]
+  }
+}
